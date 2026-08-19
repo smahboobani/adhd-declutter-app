@@ -34,6 +34,9 @@ All fits as one JSON blob in localStorage — no real database needed at this sc
 - Haptic feedback unavailable on iOS Safari (see Context above) — accepted, not a risk to mitigate.
 - No cross-device/cross-browser testing needed — single known target (Sapna's iPhone).
 
+## Deployment/Testing Note
+GitHub Pages serves all files with `Cache-Control: max-age=600` (10 min), and this is a fixed platform behavior — no custom headers possible on GitHub Pages. Discovered during M0.2: after pushing an update, Safari (and the installed home-screen PWA, compounded by the service worker's own cache) can keep showing the old version for up to ~10 minutes; closing/reopening a tab does not bypass this, since it's a shared HTTP cache keyed on URL, not per-tab. Workaround for quick checks: append a cache-busting query string (e.g. `?nocache=1`) to force a fresh fetch. Otherwise, just wait ~10 min after a push before checking on-device.
+
 ## Recommended Spike (before feature build)
 Build a minimal "Hello World" installable PWA that writes/reads localStorage. Install it to Sapna's actual iPhone and confirm data survives a few days untouched. Cheap, de-risks the riskiest technical unknown (storage persistence) before investing in real features. This is Roadmap milestone M0 — see ROADMAP.md.
 
