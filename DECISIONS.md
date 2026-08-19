@@ -1,0 +1,23 @@
+# Decision Log
+
+All decisions below were made during Phases 1-5 and locked on 2026-08-19 unless otherwise noted. Status "Approved" = do not revisit without new evidence; if you hit a reason to reconsider one during the build, stop and flag it to Sapna rather than changing it unilaterally.
+
+| ID | Decision | Rationale | Alternatives considered | Consequences | Status | Revisit if... |
+|---|---|---|---|---|---|---|
+| DEC-001 | Scope limited to Sapna's own belongings only | Avoids joint-decision/permission complexity; keeps MVP testable | Include shared household/partner/pet items | Simpler data model, narrower initial value | Approved | MVP succeeds and there's interest in expanding (parked, item 7) |
+| DEC-002 | Session unit = "zone" completion, not item count or time-based quotas | Fits reactive, short-window usage pattern | Time-boxed sessions, item-count goals | Zone must be small/bounded by design | Approved | — |
+| DEC-003 | No person-based accountability layer (coach/buddy/social) | Explicitly not wanted by Sapna | Social accountability features | App must carry motivation alone | Approved | — |
+| DEC-004 | Zone creation via curated template library + freeform custom | Removes "what do I start with" paralysis while staying flexible | AI-generated dynamic checklists (rejected — paid API, against no-budget constraint) | Requires hand-authored checklist content (≥10 zone types × ≥5 items) | Approved | Template library proves too limiting (parked, item 2) |
+| DEC-005 | Sensory feedback = sound + haptic (where supported) + visual strikeout, toggleable in settings | Named explicitly by Sapna as motivating; tests Assumption #5 | Visual-only feedback | Haptic unavailable on iOS Safari — sound + visual carry the job | Approved | — |
+| DEC-006 | XP + leveling + simplified collectible rewards (not a full crafting/economy system) | Tests Assumption #1 and #6 without overbuilding | Full crafting system, no reward system at all | Reward depth deliberately capped for MVP | Approved | — |
+| DEC-007 | No streak mechanics in MVP | Streaks assume daily cadence; actual triggers are random/unscheduled | Non-punitive streaks | Fully parked | Approved | Auto-generated daily tasks (parked, item 1) get built, creating daily cadence |
+| DEC-008 | 6-week trial period; success = ≥1 zone session in 4/6 weeks AND avg weekly self-rating ≥3.5/5 with no downward trend | Confirmed thresholds with Sapna 2026-08-19 | Other thresholds/durations | Defines what "hypothesis supported" means | Approved | — |
+| DEC-009 | No backup/export in MVP; total data loss on device loss/reset is an accepted risk | Reasonable MVP tradeoff given personal, low-stakes context | Cloud backup, export feature | Data loss = unrecoverable | Approved (accepted by Sapna 2026-08-19) | Stakes change (e.g. real user data beyond Sapna) |
+| DEC-010 | Delivery format = Progressive Web App, "Add to Home Screen" on iPhone | No App Store fee/review process; fits no-budget constraint | Native app wrap (Capacitor/Xcode) | No real haptics available (iOS Safari limitation) | Approved | Budget or platform requirements change |
+| DEC-011 | Frontend stack = vanilla HTML/CSS/JavaScript, no framework | Avoids build-tooling overhead for a technical beginner; every file stays directly readable | React/Vue/etc. | Slightly more manual DOM work | Approved | App complexity grows enough to justify framework migration |
+| DEC-012 | Data storage = browser localStorage, one JSON blob | Sufficient at this data scale; simplest possible persistence | IndexedDB | Storage-quota ceiling exists but far above expected usage | Approved | Data volume grows significantly |
+| DEC-013 | No backend/server — fully client-side | No budget, no need for MVP | Any server-based architecture | No data sync possible | Approved | Multi-device sync becomes a requirement (parked, item 6) |
+| DEC-014 | Hosting = free static hosting tier (GitHub Pages or Netlify), HTTPS included | $0 cost; HTTPS required for PWA/service worker | Paid hosting | — | Approved | — |
+| DEC-015 | No auth/login — single implicit user | No accounts needed for single-user MVP | Login system | — | Approved | Multi-device/multi-user need emerges |
+| DEC-016 | No external analytics — local stats view only | Privacy; no third-party data sharing needed for n=1 | Analytics SDK | Measurement fully manual/local | Approved | — |
+| DEC-017 | Testing = manual on Sapna's actual iPhone; automated unit tests optional/learning-value only for v1 | Matches solo/no-budget/beginner context | Full automated test suite | Lower build overhead, more manual QA burden | Approved | — |
