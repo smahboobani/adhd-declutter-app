@@ -36,9 +36,23 @@
       margin: 0 0 8px;
     }
     p {
-      margin: 0;
+      margin: 0 0 4px;
       color: #94a3b8;
       font-size: 0.95rem;
+    }
+    .persistence-check {
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+    .persistence-check p {
+      margin: 0 0 4px;
+    }
+    .persistence-check strong {
+      color: #f1f5f9;
     }
   </style>
 </head>
@@ -46,9 +60,35 @@
   <div>
     <h1>Declutter Quest</h1>
     <p>PWA skeleton is installed and running.</p>
+
+    <div class="persistence-check">
+      <p><strong>M0.2 — storage persistence check</strong></p>
+      <p>First recorded: <strong id="first-recorded">—</strong></p>
+      <p>Viewed just now: <strong id="viewed-now">—</strong></p>
+      <p>Days since first recorded: <strong id="days-elapsed">—</strong></p>
+    </div>
   </div>
 
   <script>
+    // M0.2 — writes a timestamp to localStorage once, on first load, and never overwrites it.
+    // Reopening this page days later and still seeing the same "First recorded" value is the
+    // on-device evidence that iOS actually keeps localStorage for a home-screen-installed PWA.
+    const STORAGE_KEY = 'declutter-quest:persistence-test';
+
+    let record = localStorage.getItem(STORAGE_KEY);
+    if (!record) {
+      record = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, record);
+    }
+
+    const firstRecordedDate = new Date(record);
+    const now = new Date();
+    const daysElapsed = Math.floor((now - firstRecordedDate) / (1000 * 60 * 60 * 24));
+
+    document.getElementById('first-recorded').textContent = firstRecordedDate.toLocaleString();
+    document.getElementById('viewed-now').textContent = now.toLocaleString();
+    document.getElementById('days-elapsed').textContent = daysElapsed;
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js');
