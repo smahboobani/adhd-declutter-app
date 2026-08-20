@@ -9,6 +9,16 @@ const STATUS_LABELS = {
   archived: 'Archived',
 };
 
+// Item status cycle (M2.2, FR-004): tapping an item advances it through this order.
+const ITEM_STATUS_CYCLE = ['pending', 'dealt_with', 'na'];
+const ITEM_STATUS_LABELS = { pending: 'Pending', dealt_with: 'Dealt With', na: 'N/A' };
+const ITEM_STATUS_ICONS = { pending: '○', dealt_with: '✓', na: '–' };
+
+function nextItemStatus(status) {
+  const i = ITEM_STATUS_CYCLE.indexOf(status);
+  return ITEM_STATUS_CYCLE[(i + 1) % ITEM_STATUS_CYCLE.length];
+}
+
 let zoneTypes = [];
 let pendingZoneCreation = null; // { typeId, defaultItems } while naming a library zone, or null for custom
 
@@ -72,12 +82,42 @@ function openZoneDetail(zoneId) {
   } else {
     items.forEach((item) => {
       const li = document.createElement('li');
-      li.textContent = item.name;
+      li.className = `zone-item zone-item--${item.status}`;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'zone-item-btn';
+      btn.innerHTML = `
+        <span class="zone-item-icon" aria-hidden="true">${ITEM_STATUS_ICONS[item.status]}</span>
+        <span class="zone-item-name">${escapeHtml(item.name)}</span>
+        <span class="zone-item-status">${ITEM_STATUS_LABELS[item.status]}</span>
+      `;
+      btn.addEventListener('click', () => cycleItemStatus(item.id, zoneId));
+
+      li.appendChild(btn);
       itemsEl.appendChild(li);
     });
   }
 
   showScreen('view-zone-detail');
+}
+
+// Advances one item to its next status (Pending -> Dealt With -> N/A -> Pending) and
+// re-renders. Also bumps a not-started zone to in_progress on its first interaction,
+// since FR-011's zone-list status now has something to reflect. XP awarding (FR-007)
+// is M3.3 scope, not this slice.
+function cycleItemStatus(itemId, zoneId) {
+  const item = getItemsForZone(zoneId).find((i) => i.id === itemId);
+  if (!item) return;
+
+  updateItem(itemId, { status: nextItemStatus(item.status) });
+
+  const zone = getZone(zoneId);
+  if (zone && zone.status === 'not_started') {
+    updateZone(zoneId, { status: 'in_progress' });
+  }
+
+  openZoneDetail(zoneId);
 }
 
 // ----- New zone flow (M1.3 template, M1.4 freeform) -----
@@ -214,7 +254,10 @@ function init() {
   document.getElementById('zone-name-input').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') confirmCreateZone();
   });
-  document.getElementById('back-to-list-from-detail').addEventListener('click', () => showScreen('view-list'));
+  document.getElementById('back-to-list-from-detail').addEventListener('click', () => {
+    renderZoneList();
+    showScreen('view-list');
+  });
 
   document.getElementById('export-data-btn').addEventListener('click', exportData);
   document.getElementById('import-data-btn').addEventListener('click', () => {

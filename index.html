@@ -172,15 +172,64 @@
       flex-direction: column;
       gap: 8px;
     }
-    #zone-detail-items li {
+    .zone-detail-empty {
+      color: #94a3b8;
       background: #1e293b;
       border: 1px solid #334155;
       border-radius: 8px;
       padding: 12px 14px;
       font-size: 0.95rem;
     }
-    .zone-detail-empty {
+
+    /* Item status cycle (M2.2, FR-004) */
+    .zone-item-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      text-align: left;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      min-height: 44px;
+    }
+    .zone-item-icon {
+      flex-shrink: 0;
+      width: 22px;
+      text-align: center;
+      font-size: 1.05rem;
       color: #94a3b8;
+    }
+    .zone-item-name {
+      flex: 1;
+    }
+    .zone-item-status {
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    /* Dealt With: the "win" state — full sensory treatment (sound/animation) arrives in M3.1 */
+    .zone-item--dealt_with .zone-item-btn {
+      border-color: #0f766e;
+      background: #103a35;
+    }
+    .zone-item--dealt_with .zone-item-icon {
+      color: #4ade80;
+    }
+    .zone-item--dealt_with .zone-item-name {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    /* N/A: lightweight, deliberately quieter acknowledgment — no strikethrough, just muted */
+    .zone-item--na .zone-item-btn {
+      opacity: 0.6;
+    }
+    .zone-item--na .zone-item-icon {
+      color: #64748b;
     }
 
     /* M0.2 persistence check, kept as a footer diagnostic */
@@ -271,7 +320,7 @@
   <section id="view-zone-detail" class="screen" hidden>
     <button class="back-link" id="back-to-list-from-detail" type="button">&larr; Back to zones</button>
     <h2 id="zone-detail-name"></h2>
-    <p>Checklist (marking items done arrives in a later milestone):</p>
+    <p>Tap an item to cycle it: Pending &rarr; Dealt With &rarr; N/A.</p>
     <ul id="zone-detail-items"></ul>
   </section>
 
