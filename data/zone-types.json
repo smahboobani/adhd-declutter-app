@@ -1,0 +1,291 @@
+{
+  "zoneTypes": [
+    {
+      "id": "kitchen-junk-drawer",
+      "name": "Kitchen Junk Drawer",
+      "defaultItems": [
+        "Dead batteries",
+        "Takeout menus / delivery flyers",
+        "Twist ties, rubber bands, stray zip ties",
+        "Pens that don't write",
+        "Random keys you can't place",
+        "Expired coupons",
+        "Loose screws / mystery hardware",
+        "Old phone chargers / cables"
+      ]
+    },
+    {
+      "id": "bathroom-cabinet",
+      "name": "Bathroom Cabinet",
+      "defaultItems": [
+        "Expired medication",
+        "Empty or near-empty bottles",
+        "Sample-size toiletries you'll never use",
+        "Old makeup / expired sunscreen",
+        "Duplicate half-used products",
+        "Expired cat medication or old vet supplies",
+        "Band-aids / first aid past their prime"
+      ]
+    },
+    {
+      "id": "closet-shelf",
+      "name": "Closet Shelf",
+      "defaultItems": [
+        "Clothes that don't fit",
+        "Items not worn in over a year",
+        "Damaged/stained pieces you were 'going to fix'",
+        "Single gloves / mismatched accessories",
+        "Old gift boxes and tissue paper",
+        "Bags you never use",
+        "Out-of-season clutter blocking current-season stuff"
+      ]
+    },
+    {
+      "id": "entryway",
+      "name": "Entryway / Mudroom",
+      "defaultItems": [
+        "Shoes you don't wear",
+        "Old mail / flyers piled up",
+        "Umbrellas that are broken",
+        "Reusable bags overflowing a bin",
+        "Coats out of season",
+        "Cat leash/harness or pet gear not in use",
+        "Random loose keys or unlabeled fobs"
+      ]
+    },
+    {
+      "id": "bedside-table",
+      "name": "Bedside Table",
+      "defaultItems": [
+        "Old receipts or papers",
+        "Half-finished books you've abandoned",
+        "Expired supplements/medication",
+        "Dead-battery gadgets",
+        "Tangled cables",
+        "Empty glasses/mugs migrated back",
+        "Random chargers that don't match your devices"
+      ]
+    },
+    {
+      "id": "coffee-table",
+      "name": "Coffee Table",
+      "defaultItems": [
+        "Old magazines/mail",
+        "Remote controls for devices you no longer own",
+        "Stray cat toys to consolidate",
+        "Used mugs/glasses",
+        "Random notes/sticky notes to file or toss",
+        "Chargers/cables without a home",
+        "Coasters/clutter to consolidate"
+      ]
+    },
+    {
+      "id": "bookshelf",
+      "name": "Bookshelf",
+      "defaultItems": [
+        "Books you'll never re-read",
+        "Duplicate copies",
+        "Outdated reference books/manuals",
+        "Random papers stuffed between books",
+        "Decor items that no longer fit your style",
+        "Unused picture frames",
+        "Old greeting cards kept 'just in case'"
+      ]
+    },
+    {
+      "id": "garage-shelf",
+      "name": "Garage Shelf",
+      "defaultItems": [
+        "Paint cans that are dried up or unneeded",
+        "Broken tools",
+        "Empty boxes kept 'just in case'",
+        "Hardware/screws with no matching project",
+        "Expired chemicals or cleaning supplies",
+        "Sports/hobby gear no longer used",
+        "Extension cords that don't work"
+      ]
+    },
+    {
+      "id": "kitchen-pantry-shelf",
+      "name": "Kitchen Pantry Shelf",
+      "defaultItems": [
+        "Expired food items",
+        "Duplicate opened items (e.g. two open bags of the same thing)",
+        "Spices past their prime",
+        "Single-use gadgets you never use",
+        "Take-out condiment packets",
+        "Reusable containers missing lids",
+        "Snacks bought on impulse and forgotten"
+      ]
+    },
+    {
+      "id": "bathroom-counter",
+      "name": "Bathroom Counter",
+      "defaultItems": [
+        "Empty or near-empty bottles",
+        "Duplicate products (multiple half-used)",
+        "Hair ties/accessories not used",
+        "Old toothbrushes",
+        "Expired skincare",
+        "Random cotton pads/swabs container overflow",
+        "Cat grooming supplies to consolidate"
+      ]
+    },
+    {
+      "id": "desk-surface",
+      "name": "Desk / Home Office Surface",
+      "defaultItems": [
+        "Old receipts/papers to file or toss",
+        "Dried-out pens/markers",
+        "Sticky notes past relevance",
+        "Cables for devices you no longer have",
+        "Business cards no longer relevant",
+        "Random office supplies duplicated elsewhere",
+        "Old notebooks with only a few used pages"
+      ]
+    },
+    {
+      "id": "linen-closet",
+      "name": "Linen Closet",
+      "defaultItems": [
+        "Worn-out towels",
+        "Mismatched bedsheets",
+        "Old pillows past their life",
+        "Extra blankets you never use",
+        "Cat bedding/blankets to consolidate or wash",
+        "Table linens for events that don't happen anymore",
+        "Duplicate sets you don't need"
+      ]
+    },
+    {
+      "id": "cutlery-drawer",
+      "name": "Cutlery Drawer",
+      "defaultItems": [
+        "Bent or broken utensils",
+        "Duplicate items you don't need multiples of",
+        "Single chopsticks / mismatched sets",
+        "Free plastic cutlery from takeout",
+        "Rusted or worn-out pieces",
+        "Gadgets that never get used",
+        "Rubber bands / stray junk that migrated in"
+      ]
+    },
+    {
+      "id": "dresser",
+      "name": "Dresser",
+      "defaultItems": [
+        "Clothes that don't fit",
+        "Socks with no match",
+        "Undergarments past their prime",
+        "Items not worn in over a year",
+        "Damaged/stained pieces you were 'going to fix'",
+        "Old receipts or papers tucked in drawers",
+        "Jewelry/accessories you never wear"
+      ]
+    },
+    {
+      "id": "tv-console",
+      "name": "TV Console",
+      "defaultItems": [
+        "Old cables/remotes for devices you no longer own",
+        "DVDs/games you'll never watch or play again",
+        "Dusty decor that no longer fits your style",
+        "Tangled charging cables",
+        "Old manuals/instruction booklets",
+        "Random mail or papers that pile up",
+        "Duplicate or dead batteries"
+      ]
+    },
+    {
+      "id": "pet-toy-basket",
+      "name": "Pet Toy Basket",
+      "defaultItems": [
+        "Torn or chewed-up toys past their life",
+        "Toys the cats never touch",
+        "Duplicate toys you don't need multiples of",
+        "Toys missing parts (bells, feathers, etc.)",
+        "Old treat bags/packaging",
+        "Worn-out scratching accessories",
+        "Leashes/harnesses not in use"
+      ]
+    },
+    {
+      "id": "craft-shelf",
+      "name": "Craft Shelf",
+      "defaultItems": [
+        "Dried-out glue/paint/markers",
+        "Abandoned half-finished projects",
+        "Scraps too small to be useful",
+        "Duplicate supplies bought because you forgot you had some",
+        "Kits you know you'll never start",
+        "Broken tools (scissors, hole punches, etc.)",
+        "Random inspiration clippings you'll never use"
+      ]
+    },
+    {
+      "id": "glassware",
+      "name": "Glassware",
+      "defaultItems": [
+        "Chipped or cracked glasses",
+        "Mismatched glasses from broken sets",
+        "Free promo glasses you never use",
+        "Duplicate glasses beyond what you need",
+        "Novelty glasses that just sit there",
+        "Glasses for drinks you no longer make",
+        "Cloudy/permanently stained glassware"
+      ]
+    },
+    {
+      "id": "kitchen-appliances",
+      "name": "Kitchen Appliances",
+      "defaultItems": [
+        "Single-use gadgets you've used once or never",
+        "Broken or malfunctioning appliances",
+        "Duplicate appliances (e.g. two blenders)",
+        "Missing-part appliances (no lid, no cord)",
+        "Impulse-buy gadgets that never got used",
+        "Appliances for a diet/trend you've moved on from",
+        "Manuals/boxes kept for appliances you no longer own"
+      ]
+    },
+    {
+      "id": "pots-and-pans",
+      "name": "Pots and Pans",
+      "defaultItems": [
+        "Warped or no-longer-nonstick pans",
+        "Lids without a matching pot (or vice versa)",
+        "Duplicate pots/pans you don't need multiples of",
+        "Scratched-up pans past their useful life",
+        "Odd-size pans you never reach for",
+        "Rusted baking sheets/pans",
+        "Pans with broken/wobbly handles"
+      ]
+    },
+    {
+      "id": "bar",
+      "name": "Bar",
+      "defaultItems": [
+        "Opened bottles you'll never finish",
+        "Mixers/syrups past their prime",
+        "Duplicate bottles of the same spirit",
+        "Broken or mismatched bar tools",
+        "Novelty drinkware that just sits there",
+        "Cocktail napkins/stirrers from old events",
+        "Empty decorative bottles kept 'just because'"
+      ]
+    },
+    {
+      "id": "filing-cabinet",
+      "name": "Filing Cabinet",
+      "defaultItems": [
+        "Expired warranties/manuals for items you no longer own",
+        "Old bills/statements past the years you need to keep",
+        "Duplicate copies of the same document",
+        "Outdated insurance/policy paperwork",
+        "Empty or near-empty folders",
+        "Paperwork for accounts/subscriptions you've closed",
+        "Old tax documents past the retention period"
+      ]
+    }
+  ]
+}
