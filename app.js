@@ -138,6 +138,57 @@ function confirmCreateZone() {
   openZoneDetail(zone.id);
 }
 
+// ----- Export/import (M0.3, FR-016) -----
+
+function showDataIoStatus(message, tone) {
+  const el = document.getElementById('data-io-status');
+  el.textContent = message;
+  el.dataset.tone = tone;
+  el.hidden = false;
+}
+
+function exportData() {
+  const json = exportDataJson();
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const dateStamp = new Date().toISOString().slice(0, 10);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `declutter-quest-export-${dateStamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+
+  showDataIoStatus('Export downloaded.', 'success');
+}
+
+function handleImportFileChosen(event) {
+  const file = event.target.files[0];
+  event.target.value = ''; // allow re-selecting the same file later
+  if (!file) return;
+
+  const hasExistingData = getZones().length > 0;
+  if (hasExistingData && !confirm('Importing will overwrite all data currently in the app. Continue?')) {
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const result = importDataJson(reader.result);
+    if (!result.ok) {
+      showDataIoStatus(result.error, 'error');
+      return;
+    }
+    renderZoneList();
+    showScreen('view-list');
+    showDataIoStatus('Import complete.', 'success');
+  };
+  reader.onerror = () => showDataIoStatus('Could not read that file.', 'error');
+  reader.readAsText(file);
+}
+
 // ----- Wire up + boot -----
 
 async function loadZoneTypes() {
@@ -164,6 +215,17 @@ function init() {
     if (e.key === 'Enter') confirmCreateZone();
   });
   document.getElementById('back-to-list-from-detail').addEventListener('click', () => showScreen('view-list'));
+
+  document.getElementById('export-data-btn').addEventListener('click', exportData);
+  document.getElementById('import-data-btn').addEventListener('click', () => {
+    document.getElementById('import-data-file').click();
+  });
+  document.getElementById('import-data-file').addEventListener('change', handleImportFileChosen);
+
+  // Best-effort request to reduce eviction risk; not load-bearing (FR-016 export/import is the real safety net).
+  if (navigator.storage && navigator.storage.persist) {
+    navigator.storage.persist();
+  }
 
   renderZoneList();
   loadZoneTypes();

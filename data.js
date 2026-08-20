@@ -120,3 +120,38 @@ function getZonePercentResolved(zoneId) {
   const resolved = items.filter((i) => i.status === 'dealt_with' || i.status === 'na').length;
   return Math.round((resolved / items.length) * 100);
 }
+
+// ----- Export/import (M0.3, FR-016) -----
+// Compensating control against iOS Safari clearing localStorage: lets the whole
+// data blob round-trip through a JSON file the user keeps outside the app.
+
+function exportDataJson() {
+  return JSON.stringify(loadData(), null, 2);
+}
+
+function isValidDataShape(obj) {
+  return (
+    !!obj &&
+    typeof obj === 'object' &&
+    Array.isArray(obj.zones) &&
+    Array.isArray(obj.items) &&
+    Array.isArray(obj.rewards) &&
+    Array.isArray(obj.weeklyCheckins)
+  );
+}
+
+// Parses/validates jsonText and, only if it's a well-formed export, overwrites
+// stored data. Never touches existing data on a malformed file.
+function importDataJson(jsonText) {
+  let parsed;
+  try {
+    parsed = JSON.parse(jsonText);
+  } catch (err) {
+    return { ok: false, error: "That file isn't valid JSON." };
+  }
+  if (!isValidDataShape(parsed)) {
+    return { ok: false, error: "That file doesn't look like a Declutter Quest export." };
+  }
+  saveData(parsed);
+  return { ok: true };
+}

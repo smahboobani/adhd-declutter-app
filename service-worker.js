@@ -1,5 +1,5 @@
 // M0.1 — minimal app-shell cache so the installed PWA opens even without a network connection.
-const CACHE_NAME = 'declutter-quest-shell-v3';
+const CACHE_NAME = 'declutter-quest-shell-v4';
 const SHELL_FILES = [
   './',
   './index.html',

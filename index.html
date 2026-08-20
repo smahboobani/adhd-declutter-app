@@ -197,6 +197,44 @@
     .persistence-check strong {
       color: #f1f5f9;
     }
+
+    /* M0.3 export/import (FR-016) */
+    .data-io {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+    }
+    .data-io h2 {
+      font-size: 0.95rem;
+      margin: 0 0 8px;
+    }
+    .data-io p {
+      font-size: 0.8rem;
+      margin: 0 0 12px;
+    }
+    .data-io-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .data-io-btn {
+      flex: 1;
+      padding: 10px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .data-io-status {
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+    .data-io-status[data-tone="error"] {
+      color: #f87171;
+    }
+    .data-io-status[data-tone="success"] {
+      color: #4ade80;
+    }
   </style>
 </head>
 <body>
@@ -236,6 +274,17 @@
     <p>Checklist (marking items done arrives in a later milestone):</p>
     <ul id="zone-detail-items"></ul>
   </section>
+
+  <div class="data-io">
+    <h2>Backup your data</h2>
+    <p>iOS can clear app storage after inactivity. Export a backup file now and then; import it to restore.</p>
+    <div class="data-io-buttons">
+      <button id="export-data-btn" class="data-io-btn" type="button">Export Data</button>
+      <button id="import-data-btn" class="data-io-btn" type="button">Import Data</button>
+    </div>
+    <input id="import-data-file" type="file" accept="application/json,.json" hidden />
+    <p id="data-io-status" class="data-io-status" hidden></p>
+  </div>
 
   <div class="persistence-check">
     <p><strong>M0.2 — storage persistence check</strong></p>
