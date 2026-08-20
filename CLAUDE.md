@@ -9,6 +9,7 @@ Read in this order before writing code:
 3. `TECHNICAL_DESIGN.md` — how to build it (architecture, ADRs, data model)
 4. `ROADMAP.md` — build order, sliced into small verifiable steps
 5. `DECISIONS.md` / `ASSUMPTIONS.md` / `FEATURE_PARKING_LOT.md` — as needed for context on why something is or isn't in scope
+6. `NOTION_SYNC.md` — read at the start and end of every session; governs how this repo and the Notion project stay in sync
 
 ## Non-negotiable constraints
 - **No budget.** No paid APIs, no paid hosting, no paid dev tools. Free static hosting only.
@@ -27,5 +28,14 @@ Read in this order before writing code:
 - Update `CHANGELOG.md` when a slice ships. Update `DECISIONS.md` if a decision changes.
 - Never claim something works without it actually being verified (manually on-device, or via a test).
 
+## Documentation upkeep
+See `NOTION_SYNC.md` for the full protocol (batched at session start/end, one
+writer per file). Ownership and sync direction per file are canonical in the
+Notion "🔗 Notion ↔ Repo Ownership Map" — don't duplicate that table locally.
+At minimum, every session ends with the Notion "ADHD Decluttering App —
+Project Status" page (https://app.notion.com/p/3c201769c848811c838df73189dd63d2)
+updated with the current milestone status and next step — it has no repo
+file, so this is a direct write, done once per session.
+
 ## Current status
-Phase 6 (Build Preparation). No code written yet. Start at Roadmap milestone M0 (spike).
+See ROADMAP.md's gating notes and the latest CHANGELOG.md entry for where the build actually stands.

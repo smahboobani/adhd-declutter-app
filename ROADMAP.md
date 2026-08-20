@@ -7,7 +7,15 @@
 - **0.1 — Installable PWA skeleton:** manifest.json + service worker + minimal index.html. Acceptance: installs to Sapna's iPhone home screen via "Add to Home Screen," opens full-screen (no Safari chrome).
 - **0.2 — localStorage persistence check:** write a test key/value on load, display it, install on-device, leave untouched for several days, reopen and confirm the value survived. Acceptance: value still present after real elapsed time on the actual device — this is a manual, calendar-time test, not something to fake with a quick reload.
 
-**Do not proceed to M1 until 0.2 is confirmed on-device — a failure here changes ADR-3 and needs a stop-and-flag conversation, not a workaround.**
+**Do not proceed to M1 until 0.2 is confirmed on-device — a failure here changes ADR-3 and needs a stop-and-flag conversation, not a workaround.** *(Superseded 2026-08-19 by DEC-019 — see M0.3 below; M1 no longer needs to wait on M0.2's result specifically, but does need M0.3.)*
+
+## M0.3 — Manual data export/import (FR-016)
+*Inserted 2026-08-19 per DEC-018/DEC-019, between M0 and M1.*
+- **0.3 — Export/import:** export all app data to a JSON file; import a previously exported JSON file back in, warning before it overwrites existing data. Bundle a free `navigator.storage.persist()` request alongside (not load-bearing). Acceptance: matches FR-016 acceptance criteria.
+
+**M1 gates on M0.3 shipping, not on M0.2's outcome** — once export/import exists, the worst case for a storage-eviction event is "recoverable," not "catastrophic," so M1 is safe to start without waiting on the multi-day M0.2 result. The M0.2 result is still useful signal for the 6-week trial but is no longer a blocking gate.
+
+**⚠️ Process note (2026-08-20):** M1 was built and shipped on 2026-08-19 *without* M0.3 — a gap only caught during a status-reconciliation review the next day. Confirmed by Sapna as an oversight, not a deliberate choice (unlike the earlier, deliberately-documented M0.2 gate bypass — see the M1 gate note in CHANGELOG.md). **M0.3 is still owed and must be built before M2.2 or any later slice proceeds.**
 
 ## M1 — Core data layer + zone list
 Affected FRs: FR-001, FR-003, FR-011
@@ -18,6 +26,7 @@ Affected FRs: FR-001, FR-003, FR-011
 
 ## M2 — Zone checklist + item interactions
 Affected FRs: FR-002, FR-004, FR-005, FR-014
+**Do not start 2.2 onward until M0.3 (export/import) has shipped — see process note above.**
 - **2.1 — Zone-type checklist content (FR-002):** author the actual curated content — ≥10 zone types × ≥5 typical items each, static JSON. Acceptance: matches FR-002 acceptance criteria.
 - **2.2 — Item status cycle (FR-004):** Pending / Dealt With / N/A, 3-state. Acceptance: matches FR-004 acceptance criteria; confirm during this slice whether N/A gets a lightweight non-XP acknowledgment (open question flagged in PRD.md FR-004 — resolve with Sapna, don't just pick one).
 - **2.3 — Add custom item (FR-005):** addable at any time, behaves identically to template items. Acceptance: matches FR-005.
