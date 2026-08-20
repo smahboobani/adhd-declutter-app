@@ -18,35 +18,178 @@
     :root {
       color-scheme: dark;
     }
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: #0f172a;
       color: #f1f5f9;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      text-align: center;
-      padding: 24px;
-      box-sizing: border-box;
+      padding: 20px;
+      padding-bottom: 40px;
     }
     h1 {
-      font-size: 1.5rem;
-      margin: 0 0 8px;
+      font-size: 1.4rem;
+      margin: 0 0 16px;
+    }
+    h2 {
+      font-size: 1.15rem;
+      margin: 0 0 16px;
     }
     p {
-      margin: 0 0 4px;
       color: #94a3b8;
       font-size: 0.95rem;
     }
+    button {
+      font: inherit;
+      color: inherit;
+    }
+    .screen[hidden] {
+      display: none;
+    }
+
+    /* Zone list */
+    .primary-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      background: #0f766e;
+      color: #f1f5f9;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .zone-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+      margin: 0;
+    }
+    .zone-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      width: 100%;
+      text-align: left;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .zone-card-name {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .zone-card-meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    .zone-status {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #334155;
+      font-size: 0.75rem;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 40px 16px;
+    }
+
+    /* Choice buttons (new-zone chooser, library, back links) */
+    .choice-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      text-align: left;
+      font-size: 1rem;
+    }
+    .back-link {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      padding: 8px 0;
+      margin-bottom: 12px;
+    }
+    .library-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0;
+      list-style: none;
+      margin: 0;
+    }
+    .library-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      text-align: left;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+    }
+    .library-card-count {
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    /* Name zone screen */
+    #zone-name-input {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #f1f5f9;
+      font-size: 1rem;
+    }
+
+    /* Zone detail */
+    #zone-detail-items {
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    #zone-detail-items li {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+    }
+    .zone-detail-empty {
+      color: #94a3b8;
+    }
+
+    /* M0.2 persistence check, kept as a footer diagnostic */
     .persistence-check {
-      margin-top: 20px;
+      margin-top: 32px;
       padding: 16px;
       border: 1px solid #1e293b;
       border-radius: 8px;
-      text-align: left;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     .persistence-check p {
       margin: 0 0 4px;
@@ -57,16 +200,49 @@
   </style>
 </head>
 <body>
-  <div>
-    <h1>Declutter Quest</h1>
-    <p>PWA skeleton is installed and running.</p>
 
-    <div class="persistence-check">
-      <p><strong>M0.2 — storage persistence check</strong></p>
-      <p>First recorded: <strong id="first-recorded">—</strong></p>
-      <p>Viewed just now: <strong id="viewed-now">—</strong></p>
-      <p>Days since first recorded: <strong id="days-elapsed">—</strong></p>
+  <section id="view-list" class="screen">
+    <h1>Declutter Quest</h1>
+    <button id="new-zone-btn" class="primary-btn" type="button">+ New Zone</button>
+    <ul id="zone-list" class="zone-list"></ul>
+    <div id="zone-list-empty" class="empty-state" hidden>
+      <p>No zones yet. Pick a spot to start decluttering.</p>
+      <button id="new-zone-btn-empty" class="primary-btn" type="button">+ New Zone</button>
     </div>
+  </section>
+
+  <section id="view-new-zone" class="screen" hidden>
+    <button class="back-link" id="back-to-list-from-new" type="button">&larr; Back</button>
+    <h2>New Zone</h2>
+    <button id="choose-library-btn" class="choice-btn" type="button">Pick from library</button>
+    <button id="choose-custom-btn" class="choice-btn" type="button">Custom zone</button>
+  </section>
+
+  <section id="view-library" class="screen" hidden>
+    <button class="back-link" id="back-to-new-from-library" type="button">&larr; Back</button>
+    <h2>Choose a zone type</h2>
+    <ul id="library-list" class="library-list"></ul>
+  </section>
+
+  <section id="view-name-zone" class="screen" hidden>
+    <button class="back-link" id="back-from-name-zone" type="button">&larr; Back</button>
+    <h2 id="zone-name-heading">Name your zone</h2>
+    <input id="zone-name-input" type="text" placeholder="Zone name" />
+    <button id="create-zone-btn" class="primary-btn" type="button">Create Zone</button>
+  </section>
+
+  <section id="view-zone-detail" class="screen" hidden>
+    <button class="back-link" id="back-to-list-from-detail" type="button">&larr; Back to zones</button>
+    <h2 id="zone-detail-name"></h2>
+    <p>Checklist (marking items done arrives in a later milestone):</p>
+    <ul id="zone-detail-items"></ul>
+  </section>
+
+  <div class="persistence-check">
+    <p><strong>M0.2 — storage persistence check</strong></p>
+    <p>First recorded: <strong id="first-recorded">—</strong></p>
+    <p>Viewed just now: <strong id="viewed-now">—</strong></p>
+    <p>Days since first recorded: <strong id="days-elapsed">—</strong></p>
   </div>
 
   <script>
@@ -95,5 +271,8 @@
       });
     }
   </script>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
