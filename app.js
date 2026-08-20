@@ -152,7 +152,6 @@ async function loadZoneTypes() {
 
 function init() {
   document.getElementById('new-zone-btn').addEventListener('click', openNewZoneChoice);
-  document.getElementById('new-zone-btn-empty').addEventListener('click', openNewZoneChoice);
   document.getElementById('choose-library-btn').addEventListener('click', openLibrary);
   document.getElementById('choose-custom-btn').addEventListener('click', () => openNameZone(null));
   document.getElementById('back-to-list-from-new').addEventListener('click', () => showScreen('view-list'));
