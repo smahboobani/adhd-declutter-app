@@ -4,11 +4,18 @@
 A single-user (n=1) Progressive Web App that helps Sapna declutter her own physical belongings by turning small "zones" (a drawer, a shelf, a cabinet) into short, gamified sessions — curated item checklists, sensory feedback, XP, leveling, and collectible rewards. Built solo, nights/weekends, zero budget, by a technical beginner learning Claude Code as she goes.
 
 Read in this order before writing code:
-1. `PRODUCT_BRIEF.md` — why this exists
-2. `PRD.md` — what to build (functional requirements, FR-001 to FR-015)
+1. `PRODUCT_BRIEF.md` — why this exists *(local-only, gitignored — see note below)*
+2. `PRD.md` — what to build (functional requirements, FR-001 to FR-015) *(local-only, gitignored)*
 3. `TECHNICAL_DESIGN.md` — how to build it (architecture, ADRs, data model)
 4. `ROADMAP.md` — build order, sliced into small verifiable steps
-5. `DECISIONS.md` / `ASSUMPTIONS.md` / `FEATURE_PARKING_LOT.md` — as needed for context on why something is or isn't in scope
+5. `DECISIONS.md` / `ASSUMPTIONS.md` *(local-only, gitignored)* / `FEATURE_PARKING_LOT.md` — as needed for context on why something is or isn't in scope
+
+**`PRD.md`, `PRODUCT_BRIEF.md`, and `ASSUMPTIONS.md` are intentionally not
+tracked in git** (see `.gitignore`) — they contain personal/health-context
+detail and this repo is public. They still exist on disk and should still be
+read/edited normally; they're just never committed or pushed. Their history
+was scrubbed from this repo on 2026-08-20 (see CHANGELOG.md) — they're
+mirrored in Notion instead (see `NOTION_SYNC.md`).
 6. `NOTION_SYNC.md` — read at the start and end of every session; governs how this repo and the Notion project stay in sync
 
 ## Non-negotiable constraints
