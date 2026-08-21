@@ -11,7 +11,7 @@ const STATUS_LABELS = {
 
 // Item status cycle (M2.2, FR-004): tapping an item advances it through this order.
 const ITEM_STATUS_CYCLE = ['pending', 'dealt_with', 'na'];
-const ITEM_STATUS_LABELS = { pending: 'Pending', dealt_with: 'Dealt With', na: 'N/A' };
+const ITEM_STATUS_LABELS = { pending: 'Pending', dealt_with: 'Dealt With', na: 'None Found' };
 const ITEM_STATUS_ICONS = { pending: '○', dealt_with: '✓', na: '–' };
 
 function nextItemStatus(status) {
@@ -21,6 +21,7 @@ function nextItemStatus(status) {
 
 let zoneTypes = [];
 let pendingZoneCreation = null; // { typeId, defaultItems } while naming a library zone, or null for custom
+let currentZoneId = null; // zone shown in view-zone-detail, so add-item knows where to attach
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach((el) => {
@@ -72,6 +73,7 @@ function openZoneDetail(zoneId) {
   const zone = getZone(zoneId);
   if (!zone) return;
 
+  currentZoneId = zoneId;
   document.getElementById('zone-detail-name').textContent = zone.name;
   const items = getItemsForZone(zoneId);
   const itemsEl = document.getElementById('zone-detail-items');
@@ -94,7 +96,15 @@ function openZoneDetail(zoneId) {
       `;
       btn.addEventListener('click', () => cycleItemStatus(item.id, zoneId));
 
+      const deleteBtn = document.createElement('button');
+      deleteBtn.type = 'button';
+      deleteBtn.className = 'zone-item-delete-btn';
+      deleteBtn.setAttribute('aria-label', `Delete ${item.name}`);
+      deleteBtn.textContent = '✕';
+      deleteBtn.addEventListener('click', () => removeItem(item.id, zoneId));
+
       li.appendChild(btn);
+      li.appendChild(deleteBtn);
       itemsEl.appendChild(li);
     });
   }
@@ -102,7 +112,7 @@ function openZoneDetail(zoneId) {
   showScreen('view-zone-detail');
 }
 
-// Advances one item to its next status (Pending -> Dealt With -> N/A -> Pending) and
+// Advances one item to its next status (Pending -> Dealt With -> None Found -> Pending) and
 // re-renders. Also bumps a not-started zone to in_progress on its first interaction,
 // since FR-011's zone-list status now has something to reflect. XP awarding (FR-007)
 // is M3.3 scope, not this slice.
@@ -118,6 +128,41 @@ function cycleItemStatus(itemId, zoneId) {
   }
 
   openZoneDetail(zoneId);
+}
+
+// Permanently removes an item (any item, template or custom) after a confirm
+// prompt — unlike None Found, this has no undo, so it's a separate control from the
+// tap-to-cycle status button, not folded into the status cycle itself.
+function removeItem(itemId, zoneId) {
+  const item = getItemsForZone(zoneId).find((i) => i.id === itemId);
+  if (!item) return;
+  if (!confirm(`Delete "${item.name}"? This can't be undone.`)) return;
+
+  deleteItem(itemId);
+  openZoneDetail(zoneId);
+}
+
+// ----- Add custom item (M2.3, FR-005) -----
+// New item behaves identically to template items: same pending status, same
+// cycle/render path (openZoneDetail -> cycleItemStatus), just source: 'custom'.
+function addCustomItem() {
+  const input = document.getElementById('add-item-input');
+  const name = input.value.trim();
+  if (!name || !currentZoneId) {
+    input.focus();
+    return;
+  }
+
+  addItem(currentZoneId, name);
+
+  const zone = getZone(currentZoneId);
+  if (zone && zone.status === 'not_started') {
+    updateZone(currentZoneId, { status: 'in_progress' });
+  }
+
+  input.value = '';
+  openZoneDetail(currentZoneId);
+  input.focus();
 }
 
 // ----- New zone flow (M1.3 template, M1.4 freeform) -----
@@ -257,6 +302,10 @@ function init() {
   document.getElementById('back-to-list-from-detail').addEventListener('click', () => {
     renderZoneList();
     showScreen('view-list');
+  });
+  document.getElementById('add-item-btn').addEventListener('click', addCustomItem);
+  document.getElementById('add-item-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addCustomItem();
   });
 
   document.getElementById('export-data-btn').addEventListener('click', exportData);

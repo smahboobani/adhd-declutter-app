@@ -25,11 +25,12 @@ Affected FRs: FR-001, FR-003, FR-011
 - **1.4 — Freeform zone creation (FR-003):** custom name, zero pre-populated items. Acceptance: matches FR-003 acceptance criteria.
 
 ## M2 — Zone checklist + item interactions
-Affected FRs: FR-002, FR-004, FR-005, FR-014
+Affected FRs: FR-002, FR-004, FR-005, FR-014, FR-017
 **Do not start 2.2 onward until M0.3 (export/import) has shipped — see process note above.**
 - **2.1 — Zone-type checklist content (FR-002):** author the actual curated content — ≥10 zone types × ≥5 typical items each, static JSON. Acceptance: matches FR-002 acceptance criteria.
 - **2.2 — Item status cycle (FR-004):** Pending / Dealt With / N/A, 3-state. Acceptance: matches FR-004 acceptance criteria; confirm during this slice whether N/A gets a lightweight non-XP acknowledgment (open question flagged in PRD.md FR-004 — resolve with Sapna, don't just pick one).
 - **2.3 — Add custom item (FR-005):** addable at any time, behaves identically to template items. Acceptance: matches FR-005.
+- **2.3b — Delete an item (FR-017):** *Inserted 2026-08-21 per DEC-020, not in the original slice count — Sapna requested it directly while reviewing 2.3.* Permanent delete on any item (template or custom), gated by a confirm prompt. Acceptance: matches FR-017.
 - **2.4 — Undo/revert item status (FR-014):** revert Dealt With/N/A back to Pending; reverting removes any XP awarded. Acceptance: matches FR-014.
 
 ## M3 — Sensory feedback + XP system

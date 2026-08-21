@@ -182,11 +182,17 @@
     }
 
     /* Item status cycle (M2.2, FR-004) */
+    .zone-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .zone-item-btn {
       display: flex;
       align-items: center;
       gap: 10px;
-      width: 100%;
+      flex: 1;
+      min-width: 0;
       text-align: left;
       background: #1e293b;
       border: 1px solid #334155;
@@ -194,6 +200,19 @@
       padding: 12px 14px;
       font-size: 0.95rem;
       min-height: 44px;
+    }
+
+    /* Delete item (M2.3 follow-up) */
+    .zone-item-delete-btn {
+      flex-shrink: 0;
+      min-width: 44px;
+      min-height: 44px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #f87171;
+      font-size: 1.1rem;
+      line-height: 1;
     }
     .zone-item-icon {
       flex-shrink: 0;
@@ -224,12 +243,39 @@
       color: #94a3b8;
     }
 
-    /* N/A: lightweight, deliberately quieter acknowledgment — no strikethrough, just muted */
+    /* None Found (status key: na): lightweight, deliberately quieter acknowledgment — no strikethrough, just muted */
     .zone-item--na .zone-item-btn {
       opacity: 0.6;
     }
     .zone-item--na .zone-item-icon {
       color: #64748b;
+    }
+
+    /* Add custom item (M2.3, FR-005) */
+    .add-item-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    #add-item-input {
+      flex: 1;
+      padding: 12px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #f1f5f9;
+      font-size: 1rem;
+      min-height: 44px;
+    }
+    .add-item-btn {
+      padding: 12px 18px;
+      background: #0f766e;
+      color: #f1f5f9;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      min-height: 44px;
     }
 
     /* M0.2 persistence check, kept as a footer diagnostic */
@@ -320,8 +366,12 @@
   <section id="view-zone-detail" class="screen" hidden>
     <button class="back-link" id="back-to-list-from-detail" type="button">&larr; Back to zones</button>
     <h2 id="zone-detail-name"></h2>
-    <p>Tap an item to cycle it: Pending &rarr; Dealt With &rarr; N/A.</p>
+    <p>Tap an item to cycle it: Pending &rarr; Dealt With &rarr; None Found.</p>
     <ul id="zone-detail-items"></ul>
+    <div class="add-item-row">
+      <input id="add-item-input" type="text" placeholder="Add an item" />
+      <button id="add-item-btn" class="add-item-btn" type="button">Add</button>
+    </div>
   </section>
 
   <div class="data-io">
